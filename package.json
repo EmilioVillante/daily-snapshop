@@ -1,18 +1,25 @@
 {
-  "name": "daily-snapshot",
+  "name": "daily-snapshop",
   "version": "0.0.0",
-  "description": "AI generated snapshot image for google daily trends",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EmilioVillante/daily-snapshot.git"
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
   },
-  "author": "Emilio Villante",
-  "license": "",
-  "bugs": {
-    "url": "https://github.com/EmilioVillante/daily-snapshot/issues"
+  "engines": {
+    "node": ">=14.0.0"
   },
-  "homepage": "https://github.com/EmilioVillante/daily-snapshot#readme"
+  "dependencies": {},
+  "packageManager": "yarn@1.22.4"
 }
