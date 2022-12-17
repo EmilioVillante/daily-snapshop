@@ -1,0 +1,18 @@
+{
+  "name": "daily-snapshot",
+  "version": "0.0.0",
+  "description": "AI generated snapshot image for google daily trends",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmilioVillante/daily-snapshot.git"
+  },
+  "author": "Emilio Villante",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/EmilioVillante/daily-snapshot/issues"
+  },
+  "homepage": "https://github.com/EmilioVillante/daily-snapshot#readme"
+}
