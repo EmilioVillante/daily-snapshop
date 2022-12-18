@@ -5,12 +5,12 @@ This is a project that will generate an image using stability ai based on words 
 Heavy build inspiration has come from [this blog post](https://blog.paulmcdonald.fun/stable-diffusion-gcp-cloud-function-6495a0b42c6c).
 
 A brief summary of the steps involved includes:
-1. GCP cloud scheduler to trigger process each day
-2. Fetch trends from google api based on today date
-3. Use the keywords to create a AI generated image hosted in a GCP bucket
-4. Save the image and metadata to a firestore collection
-5. Serve the images in a webapp
-6. Push images the images to redbubble
+2. Fetch trends from google api based on today date ✅
+3. Use the keywords to create a AI generated image hosted in a GCP bucket ✅
+4. Save the image and metadata to a firestore collection ✅
+5. GCP cloud scheduler to trigger process each day ✅
+6. Serve the images in a webapp
+7. Push images the images to redbubble
 
 ### Utilised Resources
 - [Stability AI developer (docs)](https://platform.stability.ai/)
@@ -29,6 +29,7 @@ A brief summary of the steps involved includes:
   - cloud functions
   - cloud run
 - Setup GCP buckets for a test and prod environment
+- Setup a firestore DB with a collection for a test and prod environment
 
 
 ### Environment variables

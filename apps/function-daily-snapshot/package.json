@@ -8,7 +8,8 @@
     "deploy-functions:prod": "gcloud functions deploy daily-snapshot --trigger-http --runtimee=nodejs18 --gen2 --entry-point generateSnapshot --set-secrets=CONFIG=snapshot-config:latest"
   },
   "dependencies": {
-    "@google-cloud/functions-framework": "^3.1.0"
+    "@google-cloud/functions-framework": "^3.1.0",
+    "firebase-admin": "^11.4.0"
   },
   "author": "",
   "license": "ISC"
