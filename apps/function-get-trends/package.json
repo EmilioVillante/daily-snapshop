@@ -1,0 +1,16 @@
+{
+  "name": "function-get-trends",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "deploy-functions:dev": "gcloud functions deploy get-trends-test --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends",
+    "deploy-functions:prod": "gcloud functions deploy get-trends --trigger-http --runtimee=nodeJS18 --gen2 --entry-point getTrends"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.1.0",
+    "escape-html": "^1.0.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
