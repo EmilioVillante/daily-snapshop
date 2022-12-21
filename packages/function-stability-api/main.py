@@ -14,7 +14,7 @@ stability_key = os.environ.get('STABILITY_API')
 
 storage_client = storage.Client()
 stability_api = client.StabilityInference(key=stability_key, verbose=True,)
-base_prompt = ', ultra photoreal, photographic, concept art, cinematic lighting, cinematic composition, rule of thirds, cinematic lighting, ultra-detailed, ultrarealistic, photorealism, 8k, octane render, no-text'
+base_prompt = ''
 seed = 513912915
 
 """HTTP Cloud Function.
@@ -56,10 +56,10 @@ def sd_generate_image(prompt):
   # the object returned is a python generator
   answers = stability_api.generate(
       prompt=prompt,
-      steps=15,
+      steps=29,
       width=512,
       height=512,
-      cfg_scale=7.0,
+      cfg_scale=15.0,
       samples=1,
       safety=True,
       seed=seed

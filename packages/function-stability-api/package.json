@@ -5,7 +5,7 @@
   "main": "main.py",
   "scripts": {
     "deploy-functions:dev": "gcloud functions deploy stability-api-test --trigger-http --runtime=python38 --gen2 --entry-point generate_image --set-secrets=STABILITY_API=stability-api:latest,BUCKET=image-bucket-test:latest",
-    "deploy-functions:prod": "gcloud functions deploy stability-api --trigger-http --runtimee=python38 --gen2 --entry-point generate_image --set-secrets=STABILITY_API=stability-api:latest,BUCKET=image-bucket:latest"
+    "deploy-functions:prod": "gcloud functions deploy stability-api --trigger-http --runtime=python38 --gen2 --entry-point generate_image --set-secrets=STABILITY_API=stability-api:latest,BUCKET=image-bucket:latest"
   },
   "author": "Emilio Villante",
   "license": ""

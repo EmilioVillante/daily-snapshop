@@ -59,8 +59,9 @@ functions.http('generateSnapshot', async (req, res) => {
         // Only use the first three trends for a more refined image
         const filteredTrends = trends.slice(0, 3);
 
+        const prompt = `${filteredTrends.join(' and ')} as a painting`
         // Generate Image trends
-        const imageUrl = `${CONFIG.generateImage}?${new URLSearchParams({prompt: filteredTrends.join(', ')})}`;
+        const imageUrl = `${CONFIG.generateImage}?${new URLSearchParams({prompt})}`;
         const imageConfig = {
             method: 'POST',
             headers: {Authorization: `Bearer ${auth}`}
@@ -74,6 +75,7 @@ functions.http('generateSnapshot', async (req, res) => {
             date: today,
             url,
             trends: filteredTrends,
+            prompt,
             geo: DEFAULT_GEO,
             created: new Date().toISOString()
         }
