@@ -37,7 +37,8 @@ Along with the microservice I would like to setup a basic application to display
 
 - GCP Functions required a lot more configuration than I had expected, however, once setup they worked quite well
 - It would have been a good idea to invest initial time in setting up a local environment to trial the functions instead of relying on the deployed test env.
-- Functions calling other functions was surprisingly unintuitive. I would have expected GCP to have created a simple interface to use and authenticate with. My current approach of authenticating through a GCP metaData call is not ideal. 
+- Functions calling other functions was surprisingly unintuitive. I would have expected GCP to have created a simple interface to use and authenticate with. My current approach of authenticating through a GCP metaData call is not ideal.
+- Running environment variables through secret manager is not ideal, you either need a LOT of variables or run out of space if treating it as an object
 
 ## Application Setup and Deployment
 
@@ -57,7 +58,6 @@ Create an account with GCP and ensure you have access to Google Console.
 - Set the project `gcloud  config set project {project id}`
 
 Within GCP Console interface enable:
-  - Secret Manager
   - artifact registry
   - cloud functions
   - cloud run
@@ -66,22 +66,25 @@ Within GCP Console interface enable:
 
 
 ### Environment variables
-Environment variables are defined in the GCP secret manager. 
+Environment variables are defined in each function through `env/{TEST|PROD}.yaml` files. 
 
-Secrets should be named for each environment:
-- DEV: `snapshot-config-test`
-- PROD: `snapshot-config`
-
-Secrets should be defined as an Object that will include all configuration for the functions:
-
+function-daily-snapshot
+```yaml
+API_GENERATE_IMAGE: ??? URL of the endpoint to generate and save the image
+API_GET_TRENDS: ??? URL of the endpoint to fetch trends
+FIRESTORE_COLLECTION: ??? Name of the firestore collection to save metaData
+DEFAULT_GEO: ??? Geo code of the country to fetch trends for
 ```
-{
-  "generateImage": "String", // API URL for the function to generate and save the image   
-  "getTrends": "String", // API URL for the function to get todays trends 
-  "firestoreCollection": "String", // Firestore collection name to save metadata 
-  "bucket": "String", // Bucket name to save the generated image
-  "stabilityApiKey": "String" // API Key to use stability api
-}
+
+function-get-trends
+```yaml
+DEFAULT_GEO: ??? Geo code of the country to fetch trends for
+```
+
+function-stability-api
+```yaml
+STABILITY_API_KEY: ??? API key from a valid Atability AI account with credits
+BUCKET: ??? The name of the bucket to save the generated image
 ```
 
 ### Deployments

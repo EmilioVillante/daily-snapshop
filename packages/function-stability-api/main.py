@@ -10,7 +10,7 @@ from PIL import Image
 from datetime import date
 
 bucket_name = os.environ.get('BUCKET')
-stability_key = os.environ.get('STABILITY_API')
+stability_key = os.environ.get('STABILITY_API_KEY')
 
 storage_client = storage.Client()
 stability_api = client.StabilityInference(key=stability_key, verbose=True,)

@@ -7,13 +7,7 @@ const functions = require('@google-cloud/functions-framework');
 initializeApp();
 const db = getFirestore();
 
-const DEFAULT_CONFIG = {
-    getTrends: undefined,
-    generateImage: undefined,
-    firestoreCollection: 'daily-snapshot-test'
-}
-
-const DEFAULT_GEO = 'AU'
+const AUTH_BASE = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=';
 
 /**
  * Call Google trends api and return the list of daily trends titles
@@ -21,16 +15,18 @@ const DEFAULT_GEO = 'AU'
  * @returns String a public link to the generated image
  */
 functions.http('generateSnapshot', async (req, res) => {
-    console.log('CONFIG', process.env.CONFIG);
-
     const CONFIG = {
-        ...DEFAULT_CONFIG,
-        ...JSON.parse(process.env.CONFIG)
+        API_GET_TRENDS: process.env.API_GET_TRENDS,
+        API_GENERATE_IMAGE: process.env.API_GENERATE_IMAGE,
+        FIRESTORE_COLLECTION: process.env.FIRESTORE_COLLECTION,
+        DEFAULT_GEO: process.env.DEFAULT_GEO
     }
 
+    console.log('CONFIG', JSON.stringify(CONFIG));
+
     try {
-        const trendsAuthUrl = `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=${CONFIG.getTrends}`;
-        const imageAuthUrl = `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=${CONFIG.generateImage}`;
+        const trendsAuthUrl = `${AUTH_BASE}${CONFIG.API_GET_TRENDS}`;
+        const imageAuthUrl = `${AUTH_BASE}${CONFIG.API_GENERATE_IMAGE}`;
         const authConfig = {
             method: 'GET',
             headers: {
@@ -43,7 +39,7 @@ functions.http('generateSnapshot', async (req, res) => {
         let auth = await authResponse.text();
 
         // Fetch trends
-        const trendUrl = `${CONFIG.getTrends}?${new URLSearchParams({geo: DEFAULT_GEO})}`;
+        const trendUrl = `${CONFIG.API_GET_TRENDS}?${new URLSearchParams({geo: CONFIG.DEFAULT_GEO})}`;
         const trendConfig = {
             method: 'GET',
             headers: {Authorization: `Bearer ${auth}`}
@@ -61,7 +57,7 @@ functions.http('generateSnapshot', async (req, res) => {
 
         const prompt = `${filteredTrends.join(' and ')} as a painting`
         // Generate Image trends
-        const imageUrl = `${CONFIG.generateImage}?${new URLSearchParams({prompt})}`;
+        const imageUrl = `${CONFIG.API_GENERATE_IMAGE}?${new URLSearchParams({prompt})}`;
         const imageConfig = {
             method: 'POST',
             headers: {Authorization: `Bearer ${auth}`}
@@ -76,13 +72,13 @@ functions.http('generateSnapshot', async (req, res) => {
             url,
             trends: filteredTrends,
             prompt,
-            geo: DEFAULT_GEO,
+            geo: CONFIG.DEFAULT_GEO,
             created: new Date().toISOString()
         }
 
         console.log(data);
 
-        const docRef = db.collection(CONFIG.firestoreCollection).doc(today);
+        const docRef = db.collection(CONFIG.FIRESTORE_COLLECTION).doc(today);
         await docRef.set(data)
 
         res.send(data);

@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "deploy-functions:dev": "gcloud functions deploy get-trends-test --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends",
-    "deploy-functions:prod": "gcloud functions deploy get-trends --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends"
+    "deploy-functions:dev": "gcloud functions deploy get-trends-test --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends --env-vars-file env/TEST.yaml",
+    "deploy-functions:prod": "gcloud functions deploy get-trends --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends --env-vars-file env/PROD.yaml"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.0",

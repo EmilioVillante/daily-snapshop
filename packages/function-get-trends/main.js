@@ -4,7 +4,6 @@ const functions = require('@google-cloud/functions-framework');
 const escapeHtml = require('escape-html');
 
 const TREND_API = 'https://trends.google.com/trends/api/topdailytrends';
-const DEFAULT_GET = 'US';
 
 /**
  * Call Google trends api and return the list of daily trends titles
@@ -14,7 +13,13 @@ const DEFAULT_GET = 'US';
  */
 functions.http('getTrends', async (req, res) => {
     try {
-        const geo = req.query.geo ? escapeHtml(req.query.geo) : DEFAULT_GET;
+        const CONFIG = {
+            DEFAULT_GEO: process.env.DEFAULT_GEO
+        }
+
+        console.log('CONFIG', JSON.stringify(CONFIG));
+
+        const geo = req.query.geo ? escapeHtml(req.query.geo) : CONFIG.DEFAULT_GEO;
         const url = `${TREND_API}?${new URLSearchParams({geo})}`;
 
         console.log('trend fetch URL', url);
