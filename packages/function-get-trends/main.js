@@ -9,7 +9,8 @@ const TREND_API = 'https://trends.google.com/trends/api/dailytrends';
  * Call Google trends api and return the list of daily trends titles
  *
  * @param {String} req.query.geo (geo=AU) Geo code for localisation of trends
- * @param {String} req.query.date (date=2022-12-04) Date to query trends for. Google only provides the last month from today.
+ * @param {String} req.query.date (date=2022-12-04) Date to query trends for. Google only provides the last month from today
+ * @param {String} req.query.limit (limit=3) How many trends to return
  *
  * @returns Array Trends relevant to the given day
  */
@@ -22,6 +23,7 @@ functions.http('getTrends', async (req, res) => {
         console.log('CONFIG', JSON.stringify(CONFIG));
 
         const geo = req.query.geo ? escapeHtml(req.query.geo) : CONFIG.DEFAULT_GEO;
+        const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
 
         let queryParams = {
             geo,
@@ -50,6 +52,10 @@ functions.http('getTrends', async (req, res) => {
         const trends = data.default.trendingSearchesDays[0].trendingSearches.map((trend) => trend.title.query);
 
         console.log('TRENDS', trends)
+
+        if (limit) {
+            trends.length = limit;
+        }
 
         res.send(trends)
     } catch(e) {
