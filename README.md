@@ -85,6 +85,10 @@ function-stability-api
 ```yaml
 STABILITY_API_KEY: ??? API key from a valid Atability AI account with credits
 BUCKET: ??? The name of the bucket to save the generated image
+CLOUDINARY_NAME: ??? The cloudinary configuration name
+CLOUDINARY_API_KEY: ??? The cloudinary configuration api key
+CLOUDINARY_API_SECRET: ??? The cloudinary configuration secret
+CLOUDINARY_SAVE_DIRECTORY: ??? The directory to save images to in cloudinary 
 ```
 
 ### Deployments

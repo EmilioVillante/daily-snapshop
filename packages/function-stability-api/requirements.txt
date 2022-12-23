@@ -1,3 +1,4 @@
 functions-framework==3.*
 stability_sdk==0.3.1
 google-cloud-storage==2.7.*
+cloudinary==1.*
