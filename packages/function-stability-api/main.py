@@ -37,7 +37,7 @@ seed = 513912915
 @functions_framework.http
 def generate_image(request):
    prompt = request.args.get('prompt')
-   prompt = request.args.get('filename')
+   filename = request.args.get('filename')
 
    # Prevent running if there is no provided prompt
    if not prompt:
@@ -118,7 +118,7 @@ def save_image_to_storage(generated_image, destination_file_name, prompt):
 
   info = {
     "gcp_public_url": new_blob.public_url,
-    "cloudinary_public_url": cloudinary_response.secure_url
+    "cloudinary_public_url": cloudinary_response["secure_url"]
   }
 
   os.remove(temp_local_filename)

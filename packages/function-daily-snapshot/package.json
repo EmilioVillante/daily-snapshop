@@ -4,12 +4,14 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "API_GET_TRENDS=http://localhost:8092 API_GENERATE_IMAGE=http://localhost:8093 FIRESTORE_COLLECTION=daily-snapshot-test NODE_ENV=local npx functions-framework --target=generateSnapshot --signature-type=http --port=8091",
     "deploy-functions:dev": "gcloud functions deploy daily-snapshot-test --trigger-http --runtime=nodejs18 --gen2 --entry-point generateSnapshot --env-vars-file env/TEST.yaml",
     "deploy-functions:prod": "gcloud functions deploy daily-snapshot --trigger-http --runtime=nodejs18 --gen2 --entry-point generateSnapshot --env-vars-file env/PROD.yaml"
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.1.0",
-    "firebase-admin": "^11.4.0"
+    "firebase-admin": "^11.4.0",
+    "escape-html": "^1.0.3"
   },
   "author": "",
   "license": "ISC"

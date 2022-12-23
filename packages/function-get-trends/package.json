@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "npx functions-framework --target=getTrends --signature-type=http --port=8092",
+    "start": "DEFAULT_GEO=AU npx functions-framework --target=getTrends --signature-type=http --port=8092",
     "deploy-functions:dev": "gcloud functions deploy get-trends-test --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends --env-vars-file env/TEST.yaml",
     "deploy-functions:prod": "gcloud functions deploy get-trends --trigger-http --runtime=nodejs18 --gen2 --entry-point getTrends --env-vars-file env/PROD.yaml"
   },

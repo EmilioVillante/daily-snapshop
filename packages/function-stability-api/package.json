@@ -4,6 +4,7 @@
   "description": "Generate an image using stable diffusion AI",
   "main": "main.py",
   "scripts": {
+    "start": "npx functions-framework --target=generate_image --signature-type=http --port=8093",
     "deploy-functions:dev": "gcloud functions deploy stability-api-test --trigger-http --runtime=python38 --gen2 --entry-point generate_image --env-vars-file env/TEST.yaml",
     "deploy-functions:prod": "gcloud functions deploy stability-api --trigger-http --runtime=python38 --gen2 --entry-point generate_image --env-vars-file env/PROD.yaml"
   },

@@ -26,7 +26,7 @@ functions.http('getTrends', async (req, res) => {
         const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
 
         let queryParams = {
-            geo,
+            ...(geo && {geo}),
             hl: 'en-US',
             ...(req.query.date && {ed: escapeHtml(req.query.date).replaceAll('-', '')})
         }
