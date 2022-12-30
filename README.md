@@ -1,4 +1,4 @@
-# Daily Snapshot
+# Daily Index
 
 ## Concept
 
